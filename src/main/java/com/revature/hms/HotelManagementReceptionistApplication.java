@@ -8,6 +8,7 @@ public class HotelManagementReceptionistApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(HotelManagementReceptionistApplication.class, args);
+		//dgfb
 	}
 
 }
