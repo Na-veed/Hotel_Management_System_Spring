@@ -43,26 +43,34 @@ public class ReceptionController {
 
 		System.out.println(dateIn);
 
-		int monthDifference = dateIn.getMonth() - new Date().getMonth();
+		Date currentDate = new Date();
+		
+		System.out.println(currentDate);
+		
+		int monthDifference = dateIn.getMonth() - currentDate.getMonth();
 		System.out.println(monthDifference);
-
-		int dateDifference = (dateIn.getDate() - new Date().getDate()) + 31;
+		
+		int dateDifference =  dateIn.getDate() - currentDate.getDate();
+		
 		System.out.println(dateDifference);
-
-		if (monthDifference != 0 && dateDifference >= 31) {
+		if (monthDifference != 0) {
 			int amount = (price / 100) * 10;
+			System.out.println("the amount of greater than 31 days is " + amount);
 			walletService.addMoneyForCancellation(username, amount);
 			responseEntity = new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		}
 
-		else if (monthDifference != 0 && dateDifference >= 15) {
+		
+		else if ((dateDifference >= 15 && dateDifference <=30)) {
+			
 			int amount = (price / 100) * 5;
+			System.out.println("amount for less greater than 15 is :"+amount);
 			walletService.addMoneyForCancellation(username, amount);
 			responseEntity = new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		}
 
-		else if (monthDifference == 0 && (dateDifference > 0 && dateDifference < 15)) {
-
+		else if (dateDifference > 0 && dateDifference < 15) {
+			System.out.println("no refund is called");
 			int amount = 0;
 			walletService.addMoneyForCancellation(username, amount);
 			responseEntity = new ResponseEntity<Boolean>(true, HttpStatus.OK);
