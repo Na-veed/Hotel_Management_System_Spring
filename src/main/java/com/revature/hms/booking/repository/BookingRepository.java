@@ -15,5 +15,5 @@ public interface BookingRepository extends CrudRepository<Booking,String>{
 	public List<Booking>findByCancellation(String cancellation);
 	public List<Booking>findByRoomNumberGreaterThan(int roomNumber);
 	public Optional<Booking> findByRoomNumber(int roomNumber);
-	public List<Booking> findByBookingEmail(String email);
+	//public List<Booking> findByBookingEmail(String email);
 }

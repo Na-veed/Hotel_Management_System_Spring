@@ -7,22 +7,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.revature.hms.HotelManagementReceptionistApplication;
 import com.revature.hms.booking.model.Booking;
 import com.revature.hms.booking.service.BookingService;
 import com.revature.hms.booking.service.BookingServiceImpl;
+
 
 @RestController
 @RequestMapping("bookRoom")
@@ -31,9 +30,9 @@ public class BookingController {
 	
 	Logger LOGGER=LoggerFactory.getLogger(BookingServiceImpl.class);
 	
-
+	boolean result=false;
 	@Autowired
-	private static JavaMailSender mailSender;
+	HotelManagementReceptionistApplication mailApplication;
 	
 	@Autowired
 	BookingService bookingService;
@@ -97,11 +96,47 @@ public class BookingController {
 		{
 			LOGGER.info("******************** ROOM IS EMPTY, ALLOCATE ROOM ");
 			
-			bookingService.updateRecord(booking);
+			result = bookingService.updateRecord(booking);
 			message = "Room : "+bookingRoom+" allocated";
+			/*
+			 * if(result) { int roomNumber = booking.getRoomNumber(); String from =
+			 * "Taj-Restaurant"; String toUserMail = booking.getEmail(); String
+			 * subject="Room Booking Status"; String message1=null;
+			 * 
+			 * message1="Congrajulations! and Hearty Welcome "+
+			 * "\n Dear "+booking.getUserName()+"\n"
+			 * +"You have successfully Booked a room in our Hotel with Room no : "
+			 * +booking.getRoomNumber()+
+			 * "With an initial Amount of INR: "+booking.getAmountPayed();
+			 * mailApplication.sendMail(from, toUserMail,subject , message1);
+			 * LOGGER.info("Mail Sent Successfully..."); }
+			 */
 			responseEntity = new ResponseEntity<String>(message,HttpStatus.OK);
 	}
 		return responseEntity;
+	}
+	
+	@PostMapping()
+	public ResponseEntity<String> mailAcknowledgement(@RequestBody Booking booking)
+	{
+		ResponseEntity<String> responseEntity = null;
+		 int roomNumber = booking.getRoomNumber();
+		 String from = "Taj-Restaurant";
+		 String toUserMail = booking.getEmail();
+		 String subject="Room Booking Status";
+		 String message=null;
+	 if(result)
+	 {
+		 message="Congratulations! and Hearty Welcome "+ 
+				 "\n Dear "+booking.getUserName()+"\n"
+				 +"You have successfully Booked a room in our Hotel with Room no : "
+				 +booking.getRoomNumber()+
+				 "With an initial Amount of INR: "+booking.getAmountPayed();
+		 mailApplication.sendMail(from, toUserMail,subject , message);
+	 }
+	  LOGGER.info("Mail Sent Successfully...");
+		return responseEntity;
+		
 	}
 	
 	@DeleteMapping("{userName}")
@@ -116,14 +151,5 @@ public class BookingController {
 		return responseEntity;
 	}
 	
-	 @GetMapping("/send")
-	 public void create() {
-	  SimpleMailMessage msg = new SimpleMailMessage();
-	  msg.setTo("sample@gmail.com");
-	  msg.setSubject("Testing from Spring Boot");
-	  msg.setText("Hello World \n Spring Boot Email");
-	 // mailSender.send();
-	  System.out.println("Mail Sent Successfully...");
 	
-	 }
 }

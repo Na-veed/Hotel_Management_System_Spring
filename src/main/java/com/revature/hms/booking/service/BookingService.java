@@ -13,5 +13,5 @@ public interface BookingService {
 	public boolean isRoomNumberExists(int roomNumber);
 	public boolean deleteRecord(String userName);
 	public boolean updateRecord(Booking booking);
-	public List<Booking> emailBookingAcknowledge(String email);
+	//public List<Booking> emailBookingAcknowledge(String email);
 }

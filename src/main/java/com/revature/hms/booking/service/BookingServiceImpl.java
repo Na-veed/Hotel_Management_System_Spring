@@ -61,12 +61,10 @@ public class BookingServiceImpl implements BookingService {
 		LOGGER.info("--------------------- ROOMS OF BOOKED RECORDS METHOD CALLED");
 		return bookingRepository.findByRoomNumberGreaterThan(roomNumber);
 	}
-
-	@Override
-	public List<Booking> emailBookingAcknowledge(String email) {
-		
-		return bookingRepository.findByBookingEmail(email);
-	}
-
-
+	/*
+	 * @Override public List<Booking> emailBookingAcknowledge(String email) {
+	 * 
+	 * return bookingRepository.findByBookingEmail(email); }
+	 * 
+	 */
 }
