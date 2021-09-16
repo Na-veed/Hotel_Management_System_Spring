@@ -14,16 +14,26 @@ public class BookingServiceImpl implements BookingService {
 	@Autowired
 	private BookingRepository bookingRepository;
 	
+//	@Override
+//	public List<CustomerBooking> getCustomerByBookingStatus(String bookingStatus) {
+//		return bookingRepository.findByBookingStatus(bookingStatus);
+//		
+//	}
 	@Override
-	public boolean deleteCustomerBookingByBookingStatus(String bookingStatus) {
-		bookingRepository.deleteCustomerBookingByBookingStatus(bookingStatus);
+	public boolean deleteByUserName(String userName) {
+		bookingRepository.deleteByUserName(userName);
 		return true;
-	}
-	@Override
-	public List<CustomerBooking> getCustomerByBookingStatus(String bookingStatus) {
-		return bookingRepository.findByBookingStatus(bookingStatus);
 		
 	}
+
+	@Override
+	public CustomerBooking findByUserName(String userName) {
+		// TODO Auto-generated method stub
+		CustomerBooking customerBooking=bookingRepository.findByUserName(userName);
+		return customerBooking;
+	}
+	
+	
 	
 
 }

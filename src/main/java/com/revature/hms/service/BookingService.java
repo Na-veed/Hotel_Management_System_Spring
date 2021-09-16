@@ -4,11 +4,15 @@ import java.util.List;
 
 import com.revature.hms.model.CustomerBooking;
 
+
 public interface BookingService {
 	
 	
-	public List<CustomerBooking> getCustomerByBookingStatus(String bookingStatus);
+//	public List<CustomerBooking> getCustomerByBookingStatus(String bookingStatus);
 	
-	public boolean deleteCustomerBookingByBookingStatus(String bookingStatus);
+	//public boolean deleteCustomerBookingByBookingStatus(String bookingStatus);
+	
+	public boolean deleteByUserName(String userName);
+	public CustomerBooking findByUserName(String userNames);
 
 }

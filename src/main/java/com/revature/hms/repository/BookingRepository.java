@@ -1,20 +1,19 @@
 package com.revature.hms.repository;
 
-import java.util.List;
 
-import org.springframework.data.jpa.repository.Query;
+import javax.transaction.Transactional;
+
 import org.springframework.data.repository.CrudRepository;
 
 import com.revature.hms.model.CustomerBooking;
 
-public interface BookingRepository extends CrudRepository<CustomerBooking, Integer>{
+public interface BookingRepository extends CrudRepository<CustomerBooking, String>{
 	
 	
-	public int deleteCustomerBookingByBookingStatus(String bookingStatus);
 
-	@Query("select cb from CustomerBooking cb where bookingStatus=:bookingStatus")
-	public List<CustomerBooking> findByBookingStatus(String bookingStatus);
+	public CustomerBooking findByUserName(String userName);
 
-	public CustomerBooking findByCustomerName(String customerName);
-
+	@Transactional
+	public String deleteByUserName(String userName);
+	
 }

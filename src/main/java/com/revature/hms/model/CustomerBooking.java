@@ -19,25 +19,30 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name="bookings")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class CustomerBooking {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int customerId;
+	private String customerUserName;
 	
 	@Column(nullable= false)
 	private String customerName;
-	
-	@Column(nullable=false, unique=true)
-	private String userName;
 	
 	@Column(nullable=false, unique=true)
 	private String customerMobileno;
 	
 	@Column(nullable=false, unique=true)
 	private String customerEmailId;
+	
+	@Column(nullable=false)
+	private String roomType;
+	
+	@Column(nullable=false)
+	private int numberOfMembers;
+	
+	@Column(nullable=false)
+	private int numberOfRooms;
 	
 	@Basic
 	@Temporal(TemporalType.DATE)
@@ -48,6 +53,9 @@ public class CustomerBooking {
 	@Temporal(TemporalType.DATE)
 	@Column(nullable=false)
 	private Calendar customerCheckOut;
+	
+	@Column
+	private int roomNo;
 	
 	@Column(nullable=false)
 	private String bookingStatus;
