@@ -1,5 +1,7 @@
 package com.revature.hms.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,13 @@ public class BookingServiceImpl implements BookingService{
 		// TODO Auto-generated method stub
 		bookingRepository.deleteById(username);
 		return false;
+	}
+
+	@Override
+	public List<BookingTable> getBookings() {
+		// TODO Auto-generated method stub
+		List<BookingTable> bookingsList = (List<BookingTable>) bookingRepository.findAll();
+		return bookingsList;
 	}
 
 }

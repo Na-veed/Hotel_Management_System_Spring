@@ -37,6 +37,7 @@ public class BookingController {
 		responseEntity = new ResponseEntity<String>("Booking deleted", HttpStatus.OK);
 		return responseEntity;
 	}
+	
 }
 
 

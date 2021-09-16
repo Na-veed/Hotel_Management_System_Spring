@@ -6,6 +6,8 @@ import java.sql.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 @Entity
@@ -25,6 +27,7 @@ public class BookingTable implements Serializable {
 	
 	private String status;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date checkInDate;
 
 }

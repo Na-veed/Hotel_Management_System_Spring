@@ -3,6 +3,8 @@ package com.revature.hms.service;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.revature.hms.model.Wallet;
@@ -13,7 +15,15 @@ public class WalletServiceImpl implements WalletService {
 
 	@Autowired
 	public WalletRepository walletRepository;
+	
+	@Autowired
+	public static JavaMailSender mailSender;
 
+	public WalletServiceImpl(JavaMailSender mailSender)
+	{
+		WalletServiceImpl.mailSender = mailSender;
+	}
+	
 	@Override
 	public boolean addWallet(Wallet wallet) {
 		// TODO Auto-generated method stub
@@ -43,6 +53,17 @@ public class WalletServiceImpl implements WalletService {
 		// TODO Auto-generated method stub
 		walletRepository.deductMoneyFromWallet(username, money);
 		return true;
+	}
+
+	@Override
+	public void sendMail(String from, String receiver, String subject, String message) {
+		// TODO Auto-generated method stub
+		SimpleMailMessage mail = new SimpleMailMessage();
+		mail.setFrom(from);
+		mail.setTo(receiver);
+		mail.setSubject(subject);
+		mail.setText(message);
+		mailSender.send(mail);	
 	}
 
 }

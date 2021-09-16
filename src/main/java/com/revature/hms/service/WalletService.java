@@ -9,6 +9,8 @@ public interface WalletService {
 	public boolean deleteWallet(String username);
 	
 	public boolean addMoneyForCancellation(String username, int amount);
+	
+	public void sendMail(String from,String toReceiver,String subject,String message);
 
 	boolean deductMoney(String username, int money);
 	
